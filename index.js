@@ -31,6 +31,13 @@ app.use(morgan('common'));
 app.use(bodyParser.json({ limit: '30mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
 app.use(cors()); // Allows requests from any origin
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*"); // Allows all origins (not recommended for production)
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    next();
+});
+
 app.use('/assets', express.static(path.join(__dirname, 'public/assets')));
 
 // file storage 
