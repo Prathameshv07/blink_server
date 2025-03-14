@@ -30,18 +30,7 @@ app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 app.use(morgan('common'));
 app.use(bodyParser.json({ limit: '30mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
-const allowedOrigins = ["https://blink_client.vercel.app", "https://myblinker.vercel.app"];
-
-app.use(cors({
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error("Not allowed by CORS"));
-        }
-    },
-    credentials: true, // Allow cookies/auth headers if needed
-}));
+app.use(cors()); // Allows requests from any origin
 app.use('/assets', express.static(path.join(__dirname, 'public/assets')));
 
 // file storage 
